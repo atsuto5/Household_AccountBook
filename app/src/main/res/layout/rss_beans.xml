@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:textSize="15dp"
+        android:text="TEXT1"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:layout_alignLeft="@+id/urlTextView"
+        android:layout_alignStart="@+id/urlTextView" />
+
+    <TextView
+        android:id="@+id/urlTextView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="TEXT2"
+        android:textColor="#000000"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginStart="73dp"
+        android:layout_below="@+id/titleTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:layout_width="8dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/webViewButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_toLeftOf="@+id/titleTextView"
+        android:layout_toStartOf="@+id/titleTextView"
+        android:layout_alignBottom="@+id/urlTextView"
+        android:background="@drawable/button_flame"
+        android:layout_margin="6dp" />
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/imageButton"
+        android:layout_marginRight="9dp"
+        android:layout_marginEnd="9dp"
+        android:layout_alignTop="@+id/webViewButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+</RelativeLayout>
+
