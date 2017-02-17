@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/refresh_layout"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:paddingBottom="10dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="65dp"
     android:background="@drawable/wall_paper"
-    tools:context="com.example.atsuto5.yahoo_rss_reader.MainActivity">
+    tools:context="com.example.atsuto5.yahoo_rss_reader.MainActivity"
+    android:layout_marginTop="48dp"
+    android:paddingTop="20dp">
     tools:showIn="@layout/app_bar_main">
 
     <ListView
         android:id="@+id/Rss_ListView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#FFFFFF"/>
+        android:background="#FFFFFF" />
 </android.support.v4.widget.SwipeRefreshLayout>

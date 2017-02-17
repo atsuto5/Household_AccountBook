@@ -18,6 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".InternationalActivity"/>
+
         <activity android:name="com.example.atsuto5.yahoo_rss_reader.WebViewActivity"/>
     </application>
 

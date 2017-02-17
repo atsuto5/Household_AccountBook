@@ -1,5 +1,6 @@
 package com.example.atsuto5.yahoo_rss_reader;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -25,13 +26,13 @@ public class RssAsyncTask extends AsyncTask<Void, Integer, ArrayList> {
     private ListView mRssListView;
     private RssAdapter mRssAdapter;
     private static final String TAG = "RssAsyncTask";
-    private MainActivity mActivity;
+    private Activity mActivity;
     private ProgressDialog mLoadingDialog;
     private boolean mDialogFlag;
     private SwipeRefreshLayout mRefreshLayout;
     private static final int HTTP_RESPONSE_OK = 200;
 
-    public RssAsyncTask(ListView listView, RssAdapter rssAdapter, MainActivity activity, SwipeRefreshLayout refreshLayout, Boolean dialogFlag) {
+    public RssAsyncTask(ListView listView, RssAdapter rssAdapter, Activity activity, SwipeRefreshLayout refreshLayout, Boolean dialogFlag) {
         this.mRssListView = listView;
         this.mRssAdapter = rssAdapter;
         this.mActivity = activity;

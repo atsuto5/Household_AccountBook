@@ -1,15 +1,13 @@
 package com.example.atsuto5.yahoo_rss_reader;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
-import android.view.View;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,17 +15,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+/**
+ * Created by Atsuto5 on 2017/02/16.
+ */
+public class InternationalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RssAdapter mRssAdapter;
     private ListView mRssList;
-    private MainActivity mMainActivity;
+    private InternationalActivity mMainActivity;
     private SwipeRefreshLayout mRefreshLayout;
-    private final String TAG = "MainActivity";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -36,8 +35,6 @@ public class MainActivity extends AppCompatActivity
         mMainActivity = this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("メイントピックス");
-        toolbar.setTitleMargin(140,0,0,0);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -47,7 +44,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        //navigationView.setNavigationItemSelectedListener(this);
 
         //データ取得開始
         RssAsyncTask rssAsync = new RssAsyncTask(mRssList, mRssAdapter, mMainActivity, mRefreshLayout, true);
@@ -92,7 +89,6 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
             return true;
         }
 
@@ -105,13 +101,11 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_economy) {
+        if (id == R.id.nav_camera) {
 
         } else if (id == R.id.nav_gallery) {
-            Log.i(TAG, "onNavigationItemSelected: nav_gallery");
             Intent intent = new Intent();
             intent.setClassName("com.example.atsuto5.yahoo_rss_reader","com.example.atsuto5.yahoo_rss_reader.InternationalActivity");
-            startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

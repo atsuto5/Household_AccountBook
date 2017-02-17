@@ -2,34 +2,54 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+        <item android:title="トピックス">
+            <menu>
+                <item
+                    android:id="@+id/nav_camera"
+                    android:icon="@drawable/maintopics_logo"
+                    android:title="メイントピックス" />
+                <item
+                    android:id="@+id/nav_gallery"
+                    android:icon="@drawable/international_logo"
+                    android:title="国際" />
+                <item
+                    android:id="@+id/nav_slideshow"
+                    android:icon="@drawable/entertainment"
+                    android:title="エンタメ" />
+                <item
+                    android:id="@+id/nav_manage"
+                    android:icon="@drawable/it_logo"
+                    android:title="IT" />
+                <item
+                    android:id="@+id/nav_local"
+                    android:icon="@drawable/local_logo"
+                    android:title="地域" />
+                <item
+                    android:id="@+id/nav_domestic"
+                    android:icon="@drawable/domestic_logo"
+                    android:title="国内" />
+                <item
+                    android:id="@+id/nav_economy"
+                    android:icon="@drawable/economy_logo"
+                    android:title="経済" />
+                <item
+                    android:id="@+id/nav_sports"
+                    android:icon="@drawable/sports_logo"
+                    android:title="スポーツ" />
+                <item
+                    android:id="@+id/nav_science"
+                    android:icon="@drawable/science_logo"
+                    android:title="科学" />
+            </menu>
+        </item>
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="あなたの興味がある分野">
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:icon="@drawable/interestgraph_logo"
+                android:title="グラフ表示" />
         </menu>
     </item>
 

@@ -10,7 +10,6 @@
     android:background="@drawable/wall_paper"
     >
 
-
     <WebView
         android:id="@+id/yahooWebView"
         android:layout_width="match_parent"
