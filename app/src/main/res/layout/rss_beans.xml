@@ -15,12 +15,12 @@
         android:textColor="#000000"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
-        android:layout_alignLeft="@+id/urlTextView"
-        android:layout_alignStart="@+id/urlTextView" />
+        android:layout_alignLeft="@+id/urlButton"
+        android:layout_alignStart="@+id/urlButton" />
 
     <Button
         android:background="@drawable/white_border"
-        android:id="@+id/urlTextView"
+        android:id="@+id/urlButton"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="TEXT2"
@@ -45,7 +45,7 @@
         android:layout_alignParentStart="false"
         android:layout_toLeftOf="@+id/titleTextView"
         android:layout_toStartOf="@+id/titleTextView"
-        android:layout_alignBottom="@+id/urlTextView"
+        android:layout_alignBottom="@+id/urlButton"
         android:background="@drawable/button_flame"
         android:layout_margin="6dp" />
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
 
     static class ViewHolder{
         TextView titleText;
-        TextView urlText;
+        Button urlButton;
         ImageButton webViewButton;
     }
 
@@ -47,7 +48,7 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
             //ViewHolderを作成
             holder = new ViewHolder();
             holder.titleText = (TextView) view.findViewById(R.id.titleTextView);
-            holder.urlText = (TextView) view.findViewById(R.id.urlTextView);
+            holder.urlButton = (Button) view.findViewById(R.id.urlButton);
             holder.webViewButton = (ImageButton) view.findViewById(R.id.webViewButton);
             view.setTag(holder);
         }else {
@@ -59,11 +60,9 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
             if(item != null){
 
                 holder.titleText.setText(item.getTitle());
-                holder.urlText.setText(item.getUrl());
-
-                holder.webViewButton.setBackgroundResource(R.drawable.button_selector);
-                holder.webViewButton.setOnClickListener(new View.OnClickListener()  {
-                    //ボタンを押したときWebViewActivityに遷移する
+                holder.urlButton.setText(item.getUrl());
+                holder.urlButton.setOnClickListener(new View.OnClickListener()  {
+                    //URLをタップしたときWebViewActivityに遷移する
                     public void onClick(View v) {
                         Intent webViewIntent = new Intent();
                         webViewIntent.setClassName(PACKAGE_NAME,WebViewActivity_NAME);
@@ -72,6 +71,18 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
                         mContext.startActivity(webViewIntent);
                     }
                 });
+
+                holder.webViewButton.setBackgroundResource(R.drawable.button_selector);
+//                holder.webViewButton.setOnClickListener(new View.OnClickListener()  {
+//                    //ボタンを押したときWebViewActivityに遷移する
+//                    public void onClick(View v) {
+//                        Intent webViewIntent = new Intent();
+//                        webViewIntent.setClassName(PACKAGE_NAME,WebViewActivity_NAME);
+//                        webViewIntent.putExtra(URL_KEY, item.getUrl());
+//                        Log.i(TAG, "onClick: " + item.getUrl());
+//                        mContext.startActivity(webViewIntent);
+//                    }
+//                });
             }
         return view;
         }
