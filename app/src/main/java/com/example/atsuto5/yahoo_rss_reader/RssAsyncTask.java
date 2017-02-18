@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by Atsuto5 on 2017/02/11.
  */
-public class RssAsyncTask extends AsyncTask<Void, Integer, ArrayList> {
+public class RssAsyncTask extends AsyncTask<String, Integer, ArrayList> {
 
     private ListView mRssListView;
     private RssAdapter mRssAdapter;
@@ -54,13 +54,13 @@ public class RssAsyncTask extends AsyncTask<Void, Integer, ArrayList> {
 
 
     @Override
-    protected ArrayList doInBackground(Void... arg0) {
+    protected ArrayList doInBackground(String... arg0) {
 
-        String url = "http://news.yahoo.co.jp/pickup/rss.xml";
+        String[] url = arg0;
         ArrayList<ItemBeans> itemList = new ArrayList<>();
 
         DefaultHttpClient client = new DefaultHttpClient();
-        HttpUriRequest req = new HttpGet(url);
+        HttpUriRequest req = new HttpGet(url[0]);
         HttpResponse res = null;
 
         try {

@@ -5,39 +5,39 @@
         <item android:title="トピックス">
             <menu>
                 <item
-                    android:id="@+id/nav_camera"
+                    android:id="@+id/maintopics_logo"
                     android:icon="@drawable/maintopics_logo"
                     android:title="メイントピックス" />
                 <item
-                    android:id="@+id/nav_gallery"
+                    android:id="@+id/international_logo"
                     android:icon="@drawable/international_logo"
                     android:title="国際" />
                 <item
-                    android:id="@+id/nav_slideshow"
+                    android:id="@+id/entertainment"
                     android:icon="@drawable/entertainment"
                     android:title="エンタメ" />
                 <item
-                    android:id="@+id/nav_manage"
+                    android:id="@+id/it_logo"
                     android:icon="@drawable/it_logo"
                     android:title="IT" />
                 <item
-                    android:id="@+id/nav_local"
+                    android:id="@+id/local_logo"
                     android:icon="@drawable/local_logo"
                     android:title="地域" />
                 <item
-                    android:id="@+id/nav_domestic"
+                    android:id="@+id/domestic_logo"
                     android:icon="@drawable/domestic_logo"
                     android:title="国内" />
                 <item
-                    android:id="@+id/nav_economy"
+                    android:id="@+id/economy_logo"
                     android:icon="@drawable/economy_logo"
                     android:title="経済" />
                 <item
-                    android:id="@+id/nav_sports"
+                    android:id="@+id/sports_logo"
                     android:icon="@drawable/sports_logo"
                     android:title="スポーツ" />
                 <item
-                    android:id="@+id/nav_science"
+                    android:id="@+id/science_logo"
                     android:icon="@drawable/science_logo"
                     android:title="科学" />
             </menu>
@@ -47,7 +47,7 @@
     <item android:title="あなたの興味がある分野">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/interestgraph_logo"
                 android:icon="@drawable/interestgraph_logo"
                 android:title="グラフ表示" />
         </menu>

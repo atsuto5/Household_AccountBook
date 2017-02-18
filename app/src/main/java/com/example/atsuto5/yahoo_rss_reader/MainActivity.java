@@ -1,12 +1,6 @@
 package com.example.atsuto5.yahoo_rss_reader;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,54 +9,49 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
+
+import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.DomesticFragment;
+import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.EconomyFragment;
+import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.EntertainmentFragment;
+import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.InternationalFragment;
+import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.ItFragment;
+import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.LocalFragment;
+import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.MainTopicsFragment;
+import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.ScienceFragment;
+import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.SportsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private RssAdapter mRssAdapter;
-    private ListView mRssList;
-    private MainActivity mMainActivity;
-    private SwipeRefreshLayout mRefreshLayout;
     private final String TAG = "MainActivity";
+    private MainTopicsFragment mMainTopicsFragment;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRssAdapter = new RssAdapter(this, R.layout.rss_beans);
-        mRssList = (ListView) findViewById(R.id.Rss_ListView);
-        mMainActivity = this;
+        mMainTopicsFragment = new MainTopicsFragment();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("メイントピックス");
-        toolbar.setTitleMargin(140,0,0,0);
-        setSupportActionBar(toolbar);
+        android.app.FragmentManager fragmentManager = getFragmentManager();
+        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container,mMainTopicsFragment);
+        fragmentTransaction.commit();
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("メイントピックス");
+        mToolbar.setTitleMargin(140,0,0,0);
+        setSupportActionBar(mToolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        //データ取得開始
-        RssAsyncTask rssAsync = new RssAsyncTask(mRssList, mRssAdapter, mMainActivity, mRefreshLayout, true);
-        rssAsync.execute();
-
-        //下にフリックした際、更新処理を行う
-        mRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.refresh_layout);
-        mRefreshLayout.setColorSchemeResources(R.color.red,R.color.blue,R.color.green,R.color.yellow);
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                RssAsyncTask rssAsync = new RssAsyncTask(mRssList, mRssAdapter, mMainActivity, mRefreshLayout, false);
-                rssAsync.execute();
-            }
-        });
 
     }
 
@@ -85,12 +74,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 
             return true;
@@ -102,22 +88,72 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
-        if (id == R.id.nav_economy) {
-
-        } else if (id == R.id.nav_gallery) {
-            Log.i(TAG, "onNavigationItemSelected: nav_gallery");
-            Intent intent = new Intent();
-            intent.setClassName("com.example.atsuto5.yahoo_rss_reader","com.example.atsuto5.yahoo_rss_reader.InternationalActivity");
-            startActivity(intent);
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
+        if (id == R.id.maintopics_logo) {
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, MainTopicsFragment.newInstance());
+            fragmentTransaction.commit();
+            mToolbar.setTitle("メイントピックス");
+            mToolbar.setTitleMargin(140,0,0,0);
+        } else if (id == R.id.international_logo) {
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, InternationalFragment.newInstance());
+            fragmentTransaction.commit();
+            mToolbar.setTitle("国際");
+            mToolbar.setTitleMargin(320,0,0,0);
+        } else if (id == R.id.entertainment) {
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, EntertainmentFragment.newInstance());
+            fragmentTransaction.commit();
+            mToolbar.setTitle("エンタメ");
+            mToolbar.setTitleMargin(260,0,0,0);
+        } else if (id == R.id.it_logo) {
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, ItFragment.newInstance());
+            fragmentTransaction.commit();
+            mToolbar.setTitle("IT");
+            mToolbar.setTitleMargin(340,0,0,0);
+        } else if (id == R.id.local_logo) {
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, LocalFragment.newInstance());
+            fragmentTransaction.commit();
+            mToolbar.setTitle("地域");
+            mToolbar.setTitleMargin(320,0,0,0);
+        } else if (id == R.id.domestic_logo){
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, DomesticFragment.newInstance());
+            fragmentTransaction.commit();
+            mToolbar.setTitle("国内");
+            mToolbar.setTitleMargin(320,0,0,0);
+        } else if (id == R.id.economy_logo){
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, EconomyFragment.newInstance());
+            fragmentTransaction.commit();
+            mToolbar.setTitle("経済");
+            mToolbar.setTitleMargin(320,0,0,0);
+        } else if (id == R.id.sports_logo){
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, SportsFragment.newInstance());
+            fragmentTransaction.commit();
+            mToolbar.setTitle("スポーツ");
+            mToolbar.setTitleMargin(260,0,0,0);
+        } else if (id == R.id.science_logo){
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, ScienceFragment.newInstance());
+            fragmentTransaction.commit();
+            mToolbar.setTitle("科学");
+            mToolbar.setTitleMargin(320,0,0,0);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

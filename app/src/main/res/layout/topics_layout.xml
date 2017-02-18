@@ -12,7 +12,7 @@
     tools:context="com.example.atsuto5.yahoo_rss_reader.MainActivity"
     android:layout_marginTop="48dp"
     android:paddingTop="20dp">
-    tools:showIn="@layout/app_bar_main">
+    <!-- tools:showIn="@layout/app_bar_main"-->
 
     <ListView
         android:id="@+id/Rss_ListView"

@@ -26,4 +26,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:design:24.1.1'
-}
+        compile ('com.kii:thing-if-sdk:0.13.0'){
+            transitive=true
+        }
+        compile ('com.kii:cloud-sdk:2.4.14'){
+            transitive=true
+        }
+    }
