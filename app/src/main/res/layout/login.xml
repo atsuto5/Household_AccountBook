@@ -4,7 +4,9 @@
     android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:id="@+id/main_login">
+    android:id="@+id/main_login"
+    android:background="@drawable/wall_paper"
+    android:weightSum="1">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,13 +24,14 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="13dip"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
-        android:paddingTop="16dip" >
+        android:paddingTop="16dip"
+        android:weightSum="1"
+        android:layout_weight="0.92">
 
         <EditText
             android:id="@+id/username_field"
@@ -36,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dip"
             android:gravity="left|center_vertical"
-            android:hint="Enter username"
+            android:hint="ユーザー名を入力して下さい。"
+            android:textColorHint="#FFFFFF"
             android:inputType="textEmailAddress"
             android:minWidth="250dip"
             android:paddingBottom="2dip"
@@ -44,7 +48,11 @@
             android:paddingRight="2dip"
             android:paddingTop="2dip"
             android:scrollHorizontally="true"
-            android:singleLine="true" >
+            android:singleLine="true"
+            android:layout_weight="0.13"
+            android:textStyle="bold|italic"
+            android:layout_marginTop="50dp"
+            android:textColor="#FFFFFF">
         </EditText>
 
         <EditText
@@ -53,7 +61,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dip"
             android:gravity="left|center_vertical"
-            android:hint="Enter password"
+            android:hint="パスワードを入力して下さい。"
+            android:textColorHint="#FFFFFF"
             android:inputType="textPassword"
             android:minWidth="250dip"
             android:paddingBottom="2dip"
@@ -61,7 +70,10 @@
             android:paddingRight="2dip"
             android:paddingTop="2dip"
             android:scrollHorizontally="true"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:layout_weight="0.19"
+            android:textStyle="bold|italic"
+            android:textColor="#FFFFFF" />
 
         </LinearLayout>
 
@@ -77,17 +89,17 @@
             android:id="@+id/sync_login_ok_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
             android:layout_margin="4dip"
             android:layout_weight="1"
             android:minWidth="100dip"
             android:onClick="handleLogin"
             android:padding="2dip"
-            android:text="Log In"
+            android:text="ログイン"
             android:textColor="@android:color/white"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:background="#FF0000"/>
+            android:background="#FF0000"
+            android:paddingBottom="30dp" />
 
         <Button
             android:id="@+id/sync_sign_up_button"
@@ -99,11 +111,11 @@
             android:minWidth="100dip"
             android:onClick="handleSignUp"
             android:padding="2dip"
-            android:text="Sign Up"
+            android:text="アカウント登録"
             android:textColor="@android:color/black"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:background="#FFFF00"/>
+            android:background="#FFFF00" />
 
     </LinearLayout>
 
