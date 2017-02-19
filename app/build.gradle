@@ -32,4 +32,14 @@ dependencies {
         compile ('com.kii:cloud-sdk:2.4.14'){
             transitive=true
         }
+
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+
+    dependencies {
+        compile 'com.github.PhilJay:MPAndroidChart:v2.1.5'
+    }
+
+
     }

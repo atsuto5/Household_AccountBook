@@ -1,14 +1,21 @@
 package com.example.atsuto5.yahoo_rss_reader;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.DomesticFragment;
 import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.EconomyFragment;
@@ -25,7 +32,9 @@ public class MainActivity extends AppCompatActivity
 
     private final String TAG = "MainActivity";
     private MainTopicsFragment mMainTopicsFragment;
-    Toolbar mToolbar;
+    private Toolbar mToolbar;
+    private TextView mUserNameTextView;
+    private boolean drawerFlag=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +53,33 @@ public class MainActivity extends AppCompatActivity
         mToolbar.setTitleMargin(140,0,0,0);
         setSupportActionBar(mToolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+
+                SharedPreferences data = getSharedPreferences("DataSave", Context.MODE_PRIVATE);
+                String username = data.getString("USERNAME", "User Name");
+
+                if(drawerFlag) {
+                    mUserNameTextView = (TextView) drawerView.findViewById(R.id.userName);
+                    mUserNameTextView.setText(username);
+                }
+                }
+        };
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -79,10 +105,21 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.action_settings) {
 
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+                new AlertDialog.Builder(this)
+                        .setTitle("確認")
+                        .setMessage("Yahoo!RSSアプリからログアウトしますか？")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("キャンセル", null)
+                        .show();
+                return true;
+            } else {
+            return super.onOptionsItemSelected(item);
+            }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -98,6 +135,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             mToolbar.setTitle("メイントピックス");
             mToolbar.setTitleMargin(140,0,0,0);
+
         } else if (id == R.id.international_logo) {
             android.app.FragmentManager fragmentManager = getFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -105,6 +143,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             mToolbar.setTitle("国際");
             mToolbar.setTitleMargin(320,0,0,0);
+
         } else if (id == R.id.entertainment) {
             android.app.FragmentManager fragmentManager = getFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -112,6 +151,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             mToolbar.setTitle("エンタメ");
             mToolbar.setTitleMargin(260,0,0,0);
+
         } else if (id == R.id.it_logo) {
             android.app.FragmentManager fragmentManager = getFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -119,6 +159,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             mToolbar.setTitle("IT");
             mToolbar.setTitleMargin(340,0,0,0);
+
         } else if (id == R.id.local_logo) {
             android.app.FragmentManager fragmentManager = getFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -126,6 +167,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             mToolbar.setTitle("地域");
             mToolbar.setTitleMargin(320,0,0,0);
+
         } else if (id == R.id.domestic_logo){
             android.app.FragmentManager fragmentManager = getFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -133,6 +175,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             mToolbar.setTitle("国内");
             mToolbar.setTitleMargin(320,0,0,0);
+
         } else if (id == R.id.economy_logo){
             android.app.FragmentManager fragmentManager = getFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -140,6 +183,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             mToolbar.setTitle("経済");
             mToolbar.setTitleMargin(320,0,0,0);
+
         } else if (id == R.id.sports_logo){
             android.app.FragmentManager fragmentManager = getFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -147,6 +191,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             mToolbar.setTitle("スポーツ");
             mToolbar.setTitleMargin(260,0,0,0);
+
         } else if (id == R.id.science_logo){
             android.app.FragmentManager fragmentManager = getFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -154,10 +199,42 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             mToolbar.setTitle("科学");
             mToolbar.setTitleMargin(320,0,0,0);
+
+        } else if (id == R.id.interestgraph_logo){
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, InterestChartFragment.newInstance());
+            fragmentTransaction.commit();
+            mToolbar.setTitle("あなたの傾向");
+            mToolbar.setTitleMargin(200,0,0,0);
+            drawerFlag=false;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    //バックキー押下時、WebView内でページバックする
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (event.getAction() == KeyEvent.ACTION_DOWN
+                && keyCode == KeyEvent.KEYCODE_BACK) {
+            new AlertDialog.Builder(this)
+                    .setTitle("確認")
+                    .setMessage("Yahoo!RSSアプリからログアウトしますか？")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("キャンセル", null)
+                    .show();
+            return true;
+        } else {
+            return false;
+        }
     }
 }

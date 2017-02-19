@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Yahoo_RSS_Reader</string>
+    <string name="app_name">Yahoo!ニュース</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Logout</string>
+    <string name="action_settings">ログアウト</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
