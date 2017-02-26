@@ -34,13 +34,12 @@ public class MainActivity extends AppCompatActivity
     private MainTopicsFragment mMainTopicsFragment;
     private Toolbar mToolbar;
     private TextView mUserNameTextView;
-    private boolean drawerFlag=true;
+    private boolean drawerFlag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mMainTopicsFragment = new MainTopicsFragment();
 
         android.app.FragmentManager fragmentManager = getFragmentManager();
@@ -48,12 +47,13 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.add(R.id.fragment_container,mMainTopicsFragment);
         fragmentTransaction.commit();
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.mainToolbar);
         mToolbar.setTitle("メイントピックス");
         mToolbar.setTitleMargin(140,0,0,0);
         setSupportActionBar(mToolbar);
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
 
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity
                 if(drawerFlag) {
                     mUserNameTextView = (TextView) drawerView.findViewById(R.id.userName);
                     mUserNameTextView.setText(username);
+                    drawerFlag = false;
                 }
                 }
         };
@@ -105,18 +106,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.action_settings) {
 
-                new AlertDialog.Builder(this)
-                        .setTitle("確認")
-                        .setMessage("Yahoo!RSSアプリからログアウトしますか？")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        })
-                        .setNegativeButton("キャンセル", null)
-                        .show();
-                return true;
+            showDialog(this);
+            return true;
+
             } else {
             return super.onOptionsItemSelected(item);
             }
@@ -128,86 +120,68 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
+        android.app.FragmentManager fragmentManager = getFragmentManager();
+        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         if (id == R.id.maintopics_logo) {
-            android.app.FragmentManager fragmentManager = getFragmentManager();
-            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, MainTopicsFragment.newInstance());
             fragmentTransaction.commit();
             mToolbar.setTitle("メイントピックス");
             mToolbar.setTitleMargin(140,0,0,0);
 
         } else if (id == R.id.international_logo) {
-            android.app.FragmentManager fragmentManager = getFragmentManager();
-            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, InternationalFragment.newInstance());
             fragmentTransaction.commit();
             mToolbar.setTitle("国際");
             mToolbar.setTitleMargin(320,0,0,0);
 
         } else if (id == R.id.entertainment) {
-            android.app.FragmentManager fragmentManager = getFragmentManager();
-            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, EntertainmentFragment.newInstance());
             fragmentTransaction.commit();
             mToolbar.setTitle("エンタメ");
             mToolbar.setTitleMargin(260,0,0,0);
 
         } else if (id == R.id.it_logo) {
-            android.app.FragmentManager fragmentManager = getFragmentManager();
-            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, ItFragment.newInstance());
             fragmentTransaction.commit();
             mToolbar.setTitle("IT");
             mToolbar.setTitleMargin(340,0,0,0);
 
         } else if (id == R.id.local_logo) {
-            android.app.FragmentManager fragmentManager = getFragmentManager();
-            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, LocalFragment.newInstance());
             fragmentTransaction.commit();
             mToolbar.setTitle("地域");
             mToolbar.setTitleMargin(320,0,0,0);
 
         } else if (id == R.id.domestic_logo){
-            android.app.FragmentManager fragmentManager = getFragmentManager();
-            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, DomesticFragment.newInstance());
             fragmentTransaction.commit();
             mToolbar.setTitle("国内");
             mToolbar.setTitleMargin(320,0,0,0);
 
         } else if (id == R.id.economy_logo){
-            android.app.FragmentManager fragmentManager = getFragmentManager();
-            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, EconomyFragment.newInstance());
             fragmentTransaction.commit();
             mToolbar.setTitle("経済");
             mToolbar.setTitleMargin(320,0,0,0);
 
         } else if (id == R.id.sports_logo){
-            android.app.FragmentManager fragmentManager = getFragmentManager();
-            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, SportsFragment.newInstance());
             fragmentTransaction.commit();
             mToolbar.setTitle("スポーツ");
             mToolbar.setTitleMargin(260,0,0,0);
 
         } else if (id == R.id.science_logo){
-            android.app.FragmentManager fragmentManager = getFragmentManager();
-            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, ScienceFragment.newInstance());
             fragmentTransaction.commit();
             mToolbar.setTitle("科学");
             mToolbar.setTitleMargin(320,0,0,0);
 
         } else if (id == R.id.interestgraph_logo){
-            android.app.FragmentManager fragmentManager = getFragmentManager();
-            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, InterestChartFragment.newInstance());
             fragmentTransaction.commit();
             mToolbar.setTitle("あなたの傾向");
             mToolbar.setTitleMargin(200,0,0,0);
-            drawerFlag=false;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -221,20 +195,28 @@ public class MainActivity extends AppCompatActivity
 
         if (event.getAction() == KeyEvent.ACTION_DOWN
                 && keyCode == KeyEvent.KEYCODE_BACK) {
-            new AlertDialog.Builder(this)
-                    .setTitle("確認")
-                    .setMessage("Yahoo!RSSアプリからログアウトしますか？")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("キャンセル", null)
-                    .show();
+
+            showDialog(this);
             return true;
+
         } else {
             return false;
         }
+    }
+
+    public void showDialog(Context context){
+
+        new AlertDialog.Builder(context)
+                .setTitle("確認")
+                .setIcon(R.drawable.maintopics_logo)
+                .setMessage("Yahoo!RSSアプリからログアウトしますか？")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("キャンセル", null)
+                .show();
     }
 }

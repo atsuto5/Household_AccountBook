@@ -32,7 +32,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+import android.support.v7.widget.Toolbar;
 
 import com.example.atsuto5.yahoo_rss_reader.kiiobject.Constants;
 import com.kii.cloud.storage.Kii;
@@ -58,9 +58,10 @@ public class WelcomeActivity extends Activity {
         // Link the variables to the UI elements.
         mUsernameField = (TextView) findViewById(R.id.username_field);
         mPasswordField = (TextView) findViewById(R.id.password_field);
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.loginToolbar);
         toolbar.setTitle("Yahoo! Login!");
         toolbar.setTitleMargin(360,0,0,0);
+
 
         if (savedInstanceState == null) {
             // initialize

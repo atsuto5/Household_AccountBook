@@ -24,6 +24,8 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
     private static final String PACKAGE_NAME = "com.example.atsuto5.yahoo_rss_reader";
     private static final String WebViewActivity_NAME = "com.example.atsuto5.yahoo_rss_reader.WebViewActivity";
     private Context mContext;
+    private String TOPIC_NAME;
+    private int mainCount = 0;
 
     static class ViewHolder{
         TextView titleText;
@@ -32,10 +34,11 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
     }
 
 
-    public RssAdapter(Context context, int id) {
+    public RssAdapter(Context context, int id, String topicName) {
         super(context, id);
         mContext = context;
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        TOPIC_NAME = topicName;
         }
 
 
@@ -64,11 +67,19 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
                 holder.urlButton.setOnClickListener(new View.OnClickListener()  {
                     //URLをタップしたときWebViewActivityに遷移する
                     public void onClick(View v) {
+                        if(TOPIC_NAME.equals("MainTopics")){
+                            mainCount += 1 ;
+                        } else if (TOPIC_NAME.equals("International")){
+
+                        }
+
                         Intent webViewIntent = new Intent();
                         webViewIntent.setClassName(PACKAGE_NAME,WebViewActivity_NAME);
                         webViewIntent.putExtra(URL_KEY, item.getUrl());
                         Log.i(TAG, "onClick: " + item.getUrl());
                         mContext.startActivity(webViewIntent);
+
+                        Log.i(TAG, "onClick: " + mainCount);
                     }
                 });
 
