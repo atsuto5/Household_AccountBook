@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
     static class ViewHolder{
         TextView titleText;
         Button urlButton;
-        ImageButton webViewButton;
+        ImageView thumbNailView;
     }
 
 
@@ -53,7 +54,7 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
             holder = new ViewHolder();
             holder.titleText = (TextView) view.findViewById(R.id.titleTextView);
             holder.urlButton = (Button) view.findViewById(R.id.urlButton);
-            holder.webViewButton = (ImageButton) view.findViewById(R.id.webViewButton);
+            holder.thumbNailView = (ImageView) view.findViewById(R.id.thumbNailView);
             view.setTag(holder);
         }else {
             holder = (ViewHolder)view.getTag();
@@ -98,7 +99,7 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
                     }
                 });
 
-                holder.webViewButton.setBackgroundResource(R.drawable.button_selector);
+                holder.thumbNailView.setBackgroundResource(R.drawable.button_selector);
 //                holder.webViewButton.setOnClickListener(new View.OnClickListener()  {
 //                    //ボタンを押したときWebViewActivityに遷移する
 //                    public void onClick(View v) {

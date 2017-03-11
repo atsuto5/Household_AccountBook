@@ -36,10 +36,10 @@
         android:layout_alignParentEnd="true"
         android:textAlignment="textStart" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="8dp"
         android:layout_height="wrap_content"
-        android:id="@+id/webViewButton"
+        android:id="@+id/thumbNailView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
@@ -56,7 +56,7 @@
         android:layout_height="30dp"
         android:layout_marginRight="9dp"
         android:layout_marginEnd="9dp"
-        android:layout_alignTop="@+id/webViewButton"
+        android:layout_alignTop="@+id/thumbNailView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
