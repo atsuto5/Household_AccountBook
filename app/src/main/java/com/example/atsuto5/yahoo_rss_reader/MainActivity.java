@@ -182,6 +182,25 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
             mToolbar.setTitle("あなたの傾向");
             mToolbar.setTitleMargin(200,0,0,0);
+
+        } else if (id == R.id.your_like_logo){
+            fragmentTransaction.replace(R.id.fragment_container, InterestChartFragment.newInstance());
+            fragmentTransaction.commit();
+            mToolbar.setTitle("あなたの傾向");
+            mToolbar.setTitleMargin(200,0,0,0);
+
+        } else if ("License".equals(item.getTitle())){
+            fragmentTransaction.replace(R.id.fragment_container, MainTopicsFragment.newInstance());
+            fragmentTransaction.commit();
+            mToolbar.setTitle("メイントピックス");
+            mToolbar.setTitleMargin(140,0,0,0);
+
+        } else if ("バージョン".equals(item.getTitle())){
+            fragmentTransaction.replace(R.id.fragment_container, MainTopicsFragment.newInstance());
+            fragmentTransaction.commit();
+            mToolbar.setTitle("メイントピックス");
+            mToolbar.setTitleMargin(140,0,0,0);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

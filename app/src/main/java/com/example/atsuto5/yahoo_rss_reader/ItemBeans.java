@@ -6,14 +6,19 @@ package com.example.atsuto5.yahoo_rss_reader;
 public class ItemBeans {
     private String mTitle;
     private String mUrl;
+    private String mThumbNailUrl;
 
 
     public void setTitle(String title) {
         this.mTitle = title;
     }
 
-    public void setUrl(String summary) {
-        this.mUrl = summary;
+    public void setUrl(String url) {
+        this.mUrl = url;
+    }
+
+    public void setThumbNailUrl(String thumbNailUrl) {
+        this.mThumbNailUrl = thumbNailUrl;
     }
 
     public String getTitle() {
@@ -23,5 +28,9 @@ public class ItemBeans {
     public String getUrl() {
         return this.mUrl;
         }
+
+    public String getThumbNailUrl() {
+        return this.mThumbNailUrl;
+    }
 
 }

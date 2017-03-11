@@ -2,6 +2,7 @@ package com.example.atsuto5.yahoo_rss_reader;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,10 +68,25 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
                 holder.urlButton.setOnClickListener(new View.OnClickListener()  {
                     //URLをタップしたときWebViewActivityに遷移する
                     public void onClick(View v) {
-                        if(TOPIC_NAME.equals("MainTopics")){
-                            mainCount += 1 ;
-                        } else if (TOPIC_NAME.equals("International")){
 
+                        if(TOPIC_NAME.equals("MainTopics")){
+                            storeCount("MAIN_TOPICS");
+                        } else if (TOPIC_NAME.equals("International")){
+                            storeCount("INTERNATIONAL");
+                        } else if (TOPIC_NAME.equals("Entertainment")){
+                            storeCount("ENTERTAINMENT");
+                        } else if (TOPIC_NAME.equals("It")){
+                            storeCount("IT");
+                        } else if (TOPIC_NAME.equals("Local")){
+                            storeCount("LOCAL");
+                        } else if (TOPIC_NAME.equals("Domestic")){
+                            storeCount("DOMESTIC");
+                        } else if (TOPIC_NAME.equals("Economy")){
+                            storeCount("ECONOMY");
+                        } else if (TOPIC_NAME.equals("Sports")){
+                            storeCount("SPORTS");
+                        } else if (TOPIC_NAME.equals("Science")){
+                            storeCount("SCIENCE");
                         }
 
                         Intent webViewIntent = new Intent();
@@ -79,7 +95,6 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
                         Log.i(TAG, "onClick: " + item.getUrl());
                         mContext.startActivity(webViewIntent);
 
-                        Log.i(TAG, "onClick: " + mainCount);
                     }
                 });
 
@@ -97,4 +112,15 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
             }
         return view;
         }
+
+    public void storeCount(String TOPIC){
+        SharedPreferences data = mContext.getSharedPreferences("DataSave", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = data.edit();
+        int count = data.getInt(TOPIC,0);
+        count += 1 ;
+        Log.i(TAG, "storeCount: " + count);
+        editor.putInt(TOPIC,count);
+        editor.apply();
+    }
+
 }

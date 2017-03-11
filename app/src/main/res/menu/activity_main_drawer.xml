@@ -43,14 +43,30 @@
             </menu>
         </item>
     </group>
-
-    <item android:title="あなたの興味がある分野">
-        <menu>
-            <item
-                android:id="@+id/interestgraph_logo"
-                android:icon="@drawable/interestgraph_logo"
-                android:title="グラフ表示" />
-        </menu>
-    </item>
-
+    <group android:checkableBehavior="single">
+        <item android:title="あなたの興味がある分野">
+            <menu>
+                <item
+                    android:id="@+id/interestgraph_logo"
+                    android:icon="@drawable/interestgraph_logo"
+                    android:title="グラフ表示" />
+                <item
+                    android:id="@+id/your_like_logo"
+                    android:icon="@drawable/your_like_logo"
+                    android:title="お気に入り" />
+            </menu>
+        </item>
+    </group>
+    <group android:checkableBehavior="single">
+        <item android:title="このアプリについて">
+            <menu>
+                <item
+                    android:id="@+id/license"
+                    android:title="License" />
+                <item
+                    android:id="@+id/version"
+                    android:title="バージョン　　　　　　　　   Ver.1.0.0" />
+            </menu>
+        </item>
+    </group>
 </menu>

@@ -33,7 +33,7 @@ public class EntertainmentFragment extends Fragment {
         View root = inflater.inflate(R.layout.topics_layout, container, false);
 
         mMainActivity = (MainActivity) getActivity();
-        mRssAdapter = new RssAdapter(mMainActivity, R.layout.rss_beans, "");
+        mRssAdapter = new RssAdapter(mMainActivity, R.layout.rss_beans, "Entertainment");
         mRssList = (ListView) root.findViewById(R.id.Rss_ListView);
 
         //データ取得開始
