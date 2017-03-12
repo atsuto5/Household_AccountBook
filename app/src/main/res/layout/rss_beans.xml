@@ -46,7 +46,6 @@
         android:layout_toLeftOf="@+id/titleTextView"
         android:layout_toStartOf="@+id/titleTextView"
         android:layout_alignBottom="@+id/urlButton"
-        android:background="@drawable/yahoo_icon"
         android:layout_margin="6dp" />
 
     <ImageButton

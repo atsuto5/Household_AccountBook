@@ -3,6 +3,7 @@ package com.example.atsuto5.yahoo_rss_reader;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.util.Xml;
@@ -14,8 +15,12 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.xmlpull.v1.XmlPullParser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +36,9 @@ public class RssAsyncTask extends AsyncTask<String, Integer, ArrayList> {
     private boolean mDialogFlag;
     private SwipeRefreshLayout mRefreshLayout;
     private static final int HTTP_RESPONSE_OK = 200;
+
+    String pageUrl = "";
+    Document doc = null;
 
     public RssAsyncTask(ListView listView, RssAdapter rssAdapter, Activity activity, SwipeRefreshLayout refreshLayout, Boolean dialogFlag) {
         this.mRssListView = listView;
@@ -96,8 +104,14 @@ public class RssAsyncTask extends AsyncTask<String, Integer, ArrayList> {
                         }
 
                     if (xmlPullParser.getName().equals("link")) {
-                        if (item != null) item.setUrl(xmlPullParser.nextText());
+                        if (item != null) {
+                            pageUrl = xmlPullParser.nextText();
+                            item.setUrl(pageUrl);
+                            }
                         }
+
+                    Log.i(TAG, "doInBackground: " + pageUrl);
+
                     }if (e == XmlPullParser.END_TAG && xmlPullParser.getName().equals("item")) {
                     itemList.add(item);
                     }
@@ -112,18 +126,9 @@ public class RssAsyncTask extends AsyncTask<String, Integer, ArrayList> {
     @Override
     protected void onPostExecute(ArrayList itemList) {
 
-        for(int i = 0; itemList.size()>i;i++){
-            mRssAdapter.add((ItemBeans) itemList.get(i));
-        }
+        //RSSで取得したURLを元にHTMLを取得しに行く。
+        ThumbnailLoadTask thumbGetTask = new ThumbnailLoadTask(mRssListView, mRssAdapter, mActivity, mRefreshLayout, mDialogFlag, mLoadingDialog);
+        thumbGetTask.execute(itemList);
 
-        if(mDialogFlag) {
-            //ダイアログを消去
-            mLoadingDialog.dismiss();
-            mRssListView.setAdapter(mRssAdapter);
-        }else{
-            //下スワイプのインジケータをストップ
-            mRefreshLayout.setRefreshing(false);
-            Toast.makeText(mActivity, "更新しました。", Toast.LENGTH_SHORT).show();
-            }
         }
-    }
+}

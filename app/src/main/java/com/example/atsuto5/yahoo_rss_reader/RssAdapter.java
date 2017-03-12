@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -99,20 +98,12 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
                     }
                 });
 
-                holder.thumbNailView.setBackgroundResource(R.drawable.button_selector);
-//                holder.webViewButton.setOnClickListener(new View.OnClickListener()  {
-//                    //ボタンを押したときWebViewActivityに遷移する
-//                    public void onClick(View v) {
-//                        Intent webViewIntent = new Intent();
-//                        webViewIntent.setClassName(PACKAGE_NAME,WebViewActivity_NAME);
-//                        webViewIntent.putExtra(URL_KEY, item.getUrl());
-//                        Log.i(TAG, "onClick: " + item.getUrl());
-//                        mContext.startActivity(webViewIntent);
-//                    }
-//                });
+                holder.thumbNailView.setImageBitmap(item.getThumNail());
             }
         return view;
         }
+
+
 
     public void storeCount(String TOPIC){
         SharedPreferences data = mContext.getSharedPreferences("DataSave", Context.MODE_PRIVATE);

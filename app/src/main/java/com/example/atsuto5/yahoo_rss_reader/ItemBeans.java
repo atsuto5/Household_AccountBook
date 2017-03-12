@@ -1,5 +1,7 @@
 package com.example.atsuto5.yahoo_rss_reader;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Atsuto5 on 2017/02/11.
  */
@@ -7,6 +9,7 @@ public class ItemBeans {
     private String mTitle;
     private String mUrl;
     private String mThumbNailUrl;
+    private Bitmap mThumbNail;
 
 
     public void setTitle(String title) {
@@ -21,6 +24,10 @@ public class ItemBeans {
         this.mThumbNailUrl = thumbNailUrl;
     }
 
+    public void setThumbNail(Bitmap thumbNail){
+        this.mThumbNail = thumbNail;
+    }
+
     public String getTitle() {
         return this.mTitle;
     }
@@ -33,4 +40,7 @@ public class ItemBeans {
         return this.mThumbNailUrl;
     }
 
+    public Bitmap getThumNail(){
+        return this.mThumbNail;
+    }
 }
