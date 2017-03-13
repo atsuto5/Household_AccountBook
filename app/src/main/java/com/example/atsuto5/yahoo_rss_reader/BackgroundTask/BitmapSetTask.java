@@ -1,4 +1,4 @@
-package com.example.atsuto5.yahoo_rss_reader;
+package com.example.atsuto5.yahoo_rss_reader.BackgroundTask;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -9,6 +9,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.atsuto5.yahoo_rss_reader.ItemBeans;
+import com.example.atsuto5.yahoo_rss_reader.RssAdapter;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -48,11 +52,9 @@ public class BitmapSetTask extends AsyncTask <ArrayList<ItemBeans>, Void, ArrayL
 
         for(int i = 0; itemList.size()>i;i++) {
             ItemBeans item = (ItemBeans) itemList.get(i);
-            Log.i(TAG, "TEST: " + item.getUrl());
 
             try {
                 URL url = new URL(item.getThumbNailUrl());
-                Log.i(TAG, "doInBackground: " + item.getThumbNailUrl());
                 HttpURLConnection con = (HttpURLConnection)url.openConnection();
                 con.setRequestMethod("GET");
                 con.connect();
@@ -61,7 +63,7 @@ public class BitmapSetTask extends AsyncTask <ArrayList<ItemBeans>, Void, ArrayL
                 in.close();
 
                 item.setThumbNail(bit);
-                itemList.set(i,item);
+                //itemList.set(i,item);
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -82,13 +84,8 @@ public class BitmapSetTask extends AsyncTask <ArrayList<ItemBeans>, Void, ArrayL
 
         mRssListView.setAdapter(mRssAdapter);
 
-        if(mDialogFlag) {
-            //ダイアログを消去
-            mLoadingDialog.dismiss();
-        }else{
-            //下スワイプのインジケータをストップ
-            mRefreshLayout.setRefreshing(false);
-            Toast.makeText(mActivity, "更新しました。", Toast.LENGTH_SHORT).show();
-        }
+        if(!mDialogFlag) Toast.makeText(mActivity, "更新しました。", Toast.LENGTH_SHORT).show();
+
+        mLoadingDialog.dismiss();
     }
 }

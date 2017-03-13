@@ -11,7 +11,7 @@
     android:background="@drawable/wall_paper"
     tools:context="com.example.atsuto5.yahoo_rss_reader.MainActivity"
     android:layout_marginTop="48dp"
-    android:paddingTop="20dp">
+    android:paddingTop="10dp">
     <!-- tools:showIn="@layout/app_bar_main"-->
 
     <ListView

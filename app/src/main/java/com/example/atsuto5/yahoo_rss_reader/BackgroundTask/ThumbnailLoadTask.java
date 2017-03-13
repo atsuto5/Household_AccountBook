@@ -1,4 +1,4 @@
-package com.example.atsuto5.yahoo_rss_reader;
+package com.example.atsuto5.yahoo_rss_reader.BackgroundTask;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -6,7 +6,9 @@ import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import com.example.atsuto5.yahoo_rss_reader.ItemBeans;
+import com.example.atsuto5.yahoo_rss_reader.RssAdapter;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -47,10 +49,9 @@ public class ThumbnailLoadTask extends AsyncTask <ArrayList<ItemBeans>, Void, Ar
 
         for(int i = 0; itemList.size()>i;i++) {
             ItemBeans item = (ItemBeans) itemList.get(i);
-            Log.i(TAG, "TEST: " + item.getUrl());
 
             try {
-                Log.i(TAG, "doInBackground: ");
+
                 doc = Jsoup.connect(item.getUrl()).get();
 
                 String imageUrl = "";
@@ -60,8 +61,7 @@ public class ThumbnailLoadTask extends AsyncTask <ArrayList<ItemBeans>, Void, Ar
                 }
 
                 item.setThumbNailUrl(imageUrl);
-                Log.i(TAG, "TEST: " + item.getThumbNailUrl());
-                itemList.set(i,item);
+                //itemList.set(i,item);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -73,9 +73,6 @@ public class ThumbnailLoadTask extends AsyncTask <ArrayList<ItemBeans>, Void, Ar
     @Override
     protected void onPostExecute(ArrayList<ItemBeans> itemList) {
         super.onPostExecute(itemList);
-
-        Log.i(TAG, "onPostExecute: " + itemList.get(0).getUrl());
-        Log.i(TAG, "onPostExecute: " + itemList.get(0).getThumbNailUrl());
 
         //[name=item-imag]と一致するURLにアクセスしimgを取得しBitmapで格納する。
         BitmapSetTask bitmapSetTask = new BitmapSetTask(mRssListView, mRssAdapter, mActivity, mRefreshLayout, mDialogFlag, mLoadingDialog);

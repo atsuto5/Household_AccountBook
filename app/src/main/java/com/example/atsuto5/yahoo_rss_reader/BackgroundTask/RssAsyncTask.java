@@ -1,26 +1,24 @@
-package com.example.atsuto5.yahoo_rss_reader;
+package com.example.atsuto5.yahoo_rss_reader.BackgroundTask;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.util.Xml;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.atsuto5.yahoo_rss_reader.MainActivity;
+import com.example.atsuto5.yahoo_rss_reader.BackgroundTask.ThumbnailLoadTask;
+import com.example.atsuto5.yahoo_rss_reader.ItemBeans;
+import com.example.atsuto5.yahoo_rss_reader.RssAdapter;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.xmlpull.v1.XmlPullParser;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -52,12 +50,18 @@ public class RssAsyncTask extends AsyncTask<String, Integer, ArrayList> {
     protected void onPreExecute(){
         //アダプターをリセットする。
         mRssAdapter.clear();
+        mLoadingDialog = new ProgressDialog(mActivity);
 
         if(mDialogFlag) {
-            mLoadingDialog = new ProgressDialog(mActivity);
             mLoadingDialog.setMessage("ロード中です...");
-            mLoadingDialog.show();
+
+        } else {
+            mRefreshLayout.setRefreshing(false);
+            mLoadingDialog.setMessage("更新中です...");
+
         }
+        mLoadingDialog.setCancelable(false);
+        mLoadingDialog.show();
     }
 
 
@@ -67,33 +71,28 @@ public class RssAsyncTask extends AsyncTask<String, Integer, ArrayList> {
         String[] url = arg0;
         ArrayList<ItemBeans> itemList = new ArrayList<>();
 
-        DefaultHttpClient client = new DefaultHttpClient();
-        HttpUriRequest req = new HttpGet(url[0]);
-        HttpResponse res = null;
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+        HttpUriRequest httpRequest = new HttpGet(url[0]);
+        HttpResponse httpResponse = null;
 
         try {
 
-            res = client.execute(req);
-            if (HTTP_RESPONSE_OK == res.getStatusLine().getStatusCode()){
+            httpResponse = httpClient.execute(httpRequest);
+            if (HTTP_RESPONSE_OK == httpResponse.getStatusLine().getStatusCode()){
                 mRssAdapter.setNotifyOnChange(false);
                 //レンダリングはせずに、オブジェクトを破棄する
                 mRssAdapter.clear();
                 mRssAdapter.setNotifyOnChange(true);
             }
 
-
-            Log.i(TAG, "doInBackground res = : " + res.getStatusLine().getStatusCode());
+            Log.i(TAG, "doInBackground res = : " + httpResponse.getStatusLine().getStatusCode());
 
             XmlPullParser xmlPullParser = Xml.newPullParser();
-            xmlPullParser.setInput(res.getEntity().getContent(),"UTF-8");
-
+            xmlPullParser.setInput(httpResponse.getEntity().getContent(),"UTF-8");
 
             ItemBeans item = null;
 
             for(int e = xmlPullParser.getEventType(); e != XmlPullParser.END_DOCUMENT; e = xmlPullParser.next()){
-
-                Log.i(TAG, "doInBackground: xmlPullParser.getName()" + xmlPullParser.getName());
-
 
                 if (e == XmlPullParser.START_TAG) {
                     if (xmlPullParser.getName().equals("item")) {
@@ -109,8 +108,6 @@ public class RssAsyncTask extends AsyncTask<String, Integer, ArrayList> {
                             item.setUrl(pageUrl);
                             }
                         }
-
-                    Log.i(TAG, "doInBackground: " + pageUrl);
 
                     }if (e == XmlPullParser.END_TAG && xmlPullParser.getName().equals("item")) {
                     itemList.add(item);

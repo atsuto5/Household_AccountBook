@@ -11,7 +11,7 @@ import android.widget.ListView;
 import com.example.atsuto5.yahoo_rss_reader.MainActivity;
 import com.example.atsuto5.yahoo_rss_reader.R;
 import com.example.atsuto5.yahoo_rss_reader.RssAdapter;
-import com.example.atsuto5.yahoo_rss_reader.RssAsyncTask;
+import com.example.atsuto5.yahoo_rss_reader.BackgroundTask.RssAsyncTask;
 
 /**
  * Created by Atsuto5 on 2017/02/18.
@@ -44,6 +44,7 @@ public class MainTopicsFragment extends Fragment {
         //下にフリックした際、更新処理を行う
         mRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
         mRefreshLayout.setColorSchemeResources(R.color.red,R.color.blue,R.color.green,R.color.yellow);
+        mRefreshLayout.setRefreshing(false);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
