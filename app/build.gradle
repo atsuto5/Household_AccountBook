@@ -29,6 +29,7 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.5'
     compile files('libs/android-query-full.0.26.8.jar')
     compile 'org.jsoup:jsoup:1.10.2'
+    compile 'com.melnykov:floatingactionbutton:1.3.0'
 
     compile('com.kii:thing-if-sdk:0.13.0') {
         transitive = true

@@ -10,6 +10,7 @@ public class ItemBeans {
     private String mUrl;
     private String mThumbNailUrl;
     private Bitmap mThumbNail;
+    //private boolean mLikeFlag = true;
 
 
     public void setTitle(String title) {
@@ -28,6 +29,10 @@ public class ItemBeans {
         this.mThumbNail = thumbNail;
     }
 
+//    public void setLikeFlag(boolean flag) {
+//        this.mLikeFlag = flag;
+//    }
+
     public String getTitle() {
         return this.mTitle;
     }
@@ -43,4 +48,8 @@ public class ItemBeans {
     public Bitmap getThumNail(){
         return this.mThumbNail;
     }
+
+//    public boolean getLikeflag() {
+//        return this.mLikeFlag;
+//    }
 }

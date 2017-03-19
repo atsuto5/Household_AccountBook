@@ -22,6 +22,7 @@ import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.EconomyFragment;
 import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.EntertainmentFragment;
 import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.InternationalFragment;
 import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.ItFragment;
+import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.LicenseFragment;
 import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.LocalFragment;
 import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.MainTopicsFragment;
 import com.example.atsuto5.yahoo_rss_reader.TopicsFragment.ScienceFragment;
@@ -190,10 +191,10 @@ public class MainActivity extends AppCompatActivity
             mToolbar.setTitleMargin(200,0,0,0);
 
         } else if ("License".equals(item.getTitle())){
-            fragmentTransaction.replace(R.id.fragment_container, MainTopicsFragment.newInstance());
+            fragmentTransaction.replace(R.id.fragment_container, LicenseFragment.newInstance());
             fragmentTransaction.commit();
-            mToolbar.setTitle("メイントピックス");
-            mToolbar.setTitleMargin(140,0,0,0);
+            mToolbar.setTitle("License");
+            mToolbar.setTitleMargin(280,0,0,0);
 
         } else if ("バージョン".equals(item.getTitle())){
             fragmentTransaction.replace(R.id.fragment_container, MainTopicsFragment.newInstance());

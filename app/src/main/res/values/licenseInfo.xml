@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="MPAndroidChart">
+        Copyright 2016 Philipp Jahoda\n
+        Licensed under the Apache License, Version 2.0 (the "License");\n
+        you may not use this file except in compliance with the License.\n
+        You may obtain a copy of the License at\n
+        http://www.apache.org/licenses/LICENSE-2.0\n
+        Unless required by applicable law or agreed to in writing, software distributed under the License is distributed\n
+        on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. \n
+        See the License for the specific language governing permissions and limitations under the License.\n
+        Special thanks to danielgindi, mikegr, tony and jitpack.io for their contributions to this project.\n
+    </string>
+    <string name="jsoup">
+        The jsoup code-base (include source and compiled packages) are distributed under\n
+        the open source MIT license as described below.\n
+        \n
+        The MIT License\n
+        Copyright © 2009 - 2016 Jonathan Hedley (jonathan@hedley.net)\n
+        \n
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this\n
+        software and associated documentation files (the "Software"), to deal in the \n
+        Software without restriction, including without limitation the rights to use, copy,\n
+        modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,\n
+        and to permit persons to whom the Software is furnished to do so, subject to the \n
+        following conditions:\n
+        \n
+        The above copyright notice and this permission notice shall be included in all copies\n
+        or substantial portions of the Software.\n
+        \n
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,\n
+        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES\n
+        OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\n
+        NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT\n
+        HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,\n
+        WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\n
+        FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR\n
+        OTHER DEALINGS IN THE SOFTWARE.\n
+    </string>
+</resources>

@@ -1,12 +1,16 @@
 package com.example.atsuto5.yahoo_rss_reader;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -14,6 +18,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -23,6 +28,8 @@ import java.util.ArrayList;
 public class InterestChartFragment extends Fragment {
 
     private PieChart mPieChart;
+    private FloatingActionButton mDeleteFab;
+    private final String TAG = "InterestCF";
 
     public static InterestChartFragment newInstance() {
         return new InterestChartFragment();
@@ -33,6 +40,28 @@ public class InterestChartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.your_chart, container, false);
+        mDeleteFab = (FloatingActionButton) root.findViewById(R.id.deleteFab);
+        mDeleteFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("アクセスカウントの初期化")
+                        .setIcon(R.drawable.garbage)
+                        .setMessage("アクセスカウントを初期化しますか？")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //初期化処理
+                                PrefsUtils.initCount(getActivity());
+                                Toast.makeText(getActivity()," 初期化しました! ", Toast.LENGTH_LONG).show();
+                                createPieChart();
+                            }
+                        })
+                        .setNegativeButton("キャンセル", null)
+                        .show();
+            }
+        });
+
         mPieChart = (PieChart) root.findViewById(R.id.your_interest_chart);
 
         createPieChart();
@@ -80,17 +109,17 @@ public class InterestChartFragment extends Fragment {
         xVals.add("スポーツ");
         xVals.add("科学");
 
-        yVals.add(new Entry(20, 0));
-        yVals.add(new Entry(10, 1));
-        yVals.add(new Entry(10, 2));
-        yVals.add(new Entry(10, 3));
-        yVals.add(new Entry(10, 4));
-        yVals.add(new Entry(10, 5));
-        yVals.add(new Entry(10, 6));
-        yVals.add(new Entry(10, 7));
-        yVals.add(new Entry(10, 8));
+        yVals.add(new Entry((float) PrefsUtils.getMainTopicsRate(getActivity()), 0));
+        yVals.add(new Entry((float) PrefsUtils.getInternationalRate(), 1));
+        yVals.add(new Entry((float) PrefsUtils.getEntertainmentRate(), 2));
+        yVals.add(new Entry((float) PrefsUtils.getItRate(), 3));
+        yVals.add(new Entry((float) PrefsUtils.getLocalRate(), 4));
+        yVals.add(new Entry((float) PrefsUtils.getDomesticRate(), 5));
+        yVals.add(new Entry((float) PrefsUtils.getEconomyRate(), 6));
+        yVals.add(new Entry((float) PrefsUtils.getSportsRate(), 7));
+        yVals.add(new Entry((float) PrefsUtils.getScienceRate(), 8));
 
-        PieDataSet dataSet = new PieDataSet(yVals, "トピック");
+        PieDataSet dataSet = new PieDataSet(yVals, "トピックス");
         dataSet.setSliceSpace(2f);
         dataSet.setSelectionShift(1f);
 

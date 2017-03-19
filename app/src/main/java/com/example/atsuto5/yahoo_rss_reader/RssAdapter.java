@@ -1,6 +1,8 @@
 package com.example.atsuto5.yahoo_rss_reader;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,12 +29,12 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
     private static final String WebViewActivity_NAME = "com.example.atsuto5.yahoo_rss_reader.WebViewActivity";
     private Context mContext;
     private String TOPIC_NAME;
-    private int mainCount = 0;
 
     static class ViewHolder{
         TextView titleText;
         Button urlButton;
         ImageView thumbNailView;
+        ImageView userLikeView;
     }
 
 
@@ -45,7 +48,7 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
 
     public View getView(final int position, View view, final ViewGroup parent){
 
-        ViewHolder holder;
+        final ViewHolder holder;
 
         if(view == null) {
             view = mInflater.inflate(R.layout.rss_beans, null);
@@ -54,6 +57,7 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
             holder.titleText = (TextView) view.findViewById(R.id.titleTextView);
             holder.urlButton = (Button) view.findViewById(R.id.urlButton);
             holder.thumbNailView = (ImageView) view.findViewById(R.id.thumbNailView);
+            holder.userLikeView = (ImageView) view.findViewById(R.id.userLikeView);
             view.setTag(holder);
         }else {
             holder = (ViewHolder)view.getTag();
@@ -69,24 +73,43 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
                     //URLをタップしたときWebViewActivityに遷移する
                     public void onClick(View v) {
 
-                        if(TOPIC_NAME.equals("MainTopics")){
-                            storeCount("MAIN_TOPICS");
-                        } else if (TOPIC_NAME.equals("International")){
-                            storeCount("INTERNATIONAL");
-                        } else if (TOPIC_NAME.equals("Entertainment")){
-                            storeCount("ENTERTAINMENT");
-                        } else if (TOPIC_NAME.equals("It")){
-                            storeCount("IT");
-                        } else if (TOPIC_NAME.equals("Local")){
-                            storeCount("LOCAL");
-                        } else if (TOPIC_NAME.equals("Domestic")){
-                            storeCount("DOMESTIC");
-                        } else if (TOPIC_NAME.equals("Economy")){
-                            storeCount("ECONOMY");
-                        } else if (TOPIC_NAME.equals("Sports")){
-                            storeCount("SPORTS");
-                        } else if (TOPIC_NAME.equals("Science")){
-                            storeCount("SCIENCE");
+                        switch (TOPIC_NAME) {
+
+                            case PrefsUtils.MAIN_TOPICS_KEY :
+                                PrefsUtils.storeCount(PrefsUtils.MAIN_TOPICS_KEY, mContext);
+                                break;
+
+                            case PrefsUtils.INTERNATIONAL_KEY :
+                                PrefsUtils.storeCount(PrefsUtils.INTERNATIONAL_KEY, mContext);
+                                break;
+
+                            case PrefsUtils.ENTERTAINMENT_KEY :
+                                PrefsUtils.storeCount(PrefsUtils.ENTERTAINMENT_KEY, mContext);
+                                break;
+
+                            case PrefsUtils.IT_KEY :
+                                PrefsUtils.storeCount(PrefsUtils.IT_KEY, mContext);
+                                break;
+
+                            case PrefsUtils.LOCAL_KEY :
+                                PrefsUtils.storeCount(PrefsUtils.LOCAL_KEY, mContext);
+                                break;
+
+                            case PrefsUtils.DOMESTIC_KEY :
+                                PrefsUtils.storeCount(PrefsUtils.DOMESTIC_KEY, mContext);
+                                break;
+
+                            case PrefsUtils.ECONOMY_KEY :
+                                PrefsUtils.storeCount(PrefsUtils.ECONOMY_KEY, mContext);
+                                break;
+
+                            case PrefsUtils.SPORTS_KEY :
+                                PrefsUtils.storeCount(PrefsUtils.SPORTS_KEY, mContext);
+                                break;
+
+                            case PrefsUtils.SCIENCE_KEY :
+                                PrefsUtils.storeCount(PrefsUtils.SCIENCE_KEY, mContext);
+                                break;
                         }
 
                         Intent webViewIntent = new Intent();
@@ -99,20 +122,30 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
                 });
 
                 holder.thumbNailView.setImageBitmap(item.getThumNail());
+
+                holder.userLikeView.setImageResource(R.drawable.yellow_star);
+                holder.userLikeView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                            new AlertDialog.Builder(mContext)
+                                    .setTitle("お気に入り登録")
+                                    .setMessage("お気に入りに登録しますか？")
+                                    .setIcon(R.drawable.yellow_star)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Toast.makeText(mContext, "お気に入りに登録しました。", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .setNegativeButton("キャンセル", null)
+                                    .show();
+
+
+                    }
+                });
             }
         return view;
         }
-
-
-
-    public void storeCount(String TOPIC){
-        SharedPreferences data = mContext.getSharedPreferences("DataSave", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = data.edit();
-        int count = data.getInt(TOPIC,0);
-        count += 1 ;
-        Log.i(TAG, "storeCount: " + count);
-        editor.putInt(TOPIC,count);
-        editor.apply();
-    }
 
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.atsuto5.yahoo_rss_reader.MainActivity;
+import com.example.atsuto5.yahoo_rss_reader.PrefsUtils;
 import com.example.atsuto5.yahoo_rss_reader.R;
 import com.example.atsuto5.yahoo_rss_reader.RssAdapter;
 import com.example.atsuto5.yahoo_rss_reader.BackgroundTask.RssAsyncTask;
@@ -34,7 +35,7 @@ public class MainTopicsFragment extends Fragment {
         View root = inflater.inflate(R.layout.topics_layout, container, false);
 
         mMainActivity = (MainActivity) getActivity();
-        mRssAdapter = new RssAdapter(mMainActivity, R.layout.rss_beans, "MainTopics");
+        mRssAdapter = new RssAdapter(mMainActivity, R.layout.rss_beans, PrefsUtils.MAIN_TOPICS_KEY);
         mRssList = (ListView) root.findViewById(R.id.Rss_ListView);
 
         //データ取得開始
