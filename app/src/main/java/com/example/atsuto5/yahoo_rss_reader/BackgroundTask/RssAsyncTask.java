@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.util.Xml;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.atsuto5.yahoo_rss_reader.BackgroundTask.ThumbnailLoadTask;
 import com.example.atsuto5.yahoo_rss_reader.ItemBeans;
@@ -122,6 +123,16 @@ public class RssAsyncTask extends AsyncTask<String, Integer, ArrayList> {
 
     @Override
     protected void onPostExecute(ArrayList itemList) {
+
+        for(int i = 0; itemList.size()>i;i++){
+            mRssAdapter.add((ItemBeans) itemList.get(i));
+        }
+
+        mRssListView.setAdapter(mRssAdapter);
+
+        if(!mDialogFlag) Toast.makeText(mActivity, "更新しました。", Toast.LENGTH_SHORT).show();
+
+        mLoadingDialog.dismiss();
 
         //RSSで取得したURLを元にHTMLを取得しに行く。
         ThumbnailLoadTask thumbGetTask = new ThumbnailLoadTask(mRssListView, mRssAdapter, mActivity, mRefreshLayout, mDialogFlag, mLoadingDialog);

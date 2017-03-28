@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -49,6 +51,8 @@ public class BitmapSetTask extends AsyncTask <ArrayList<ItemBeans>, Void, ArrayL
     protected ArrayList<ItemBeans> doInBackground(ArrayList<ItemBeans>... params) {
 
         ArrayList<ItemBeans> itemList = params[0];
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
 
         for(int i = 0; itemList.size()>i;i++) {
             ItemBeans item = (ItemBeans) itemList.get(i);
@@ -59,7 +63,7 @@ public class BitmapSetTask extends AsyncTask <ArrayList<ItemBeans>, Void, ArrayL
                 con.setRequestMethod("GET");
                 con.connect();
                 InputStream in = con.getInputStream();
-                bit = BitmapFactory.decodeStream(in);
+                bit = BitmapFactory.decodeStream(in, null, options);
                 in.close();
 
                 item.setThumbNail(bit);
@@ -78,14 +82,16 @@ public class BitmapSetTask extends AsyncTask <ArrayList<ItemBeans>, Void, ArrayL
     protected void onPostExecute(ArrayList<ItemBeans> itemList) {
         super.onPostExecute(itemList);
 
-        for(int i = 0; itemList.size()>i;i++){
-            mRssAdapter.add((ItemBeans) itemList.get(i));
-        }
+//
+//        for(int i = 0; itemList.size()>i;i++){
+//            mRssAdapter.add((ItemBeans) itemList.get(i));
+//        }
 
         mRssListView.setAdapter(mRssAdapter);
 
         if(!mDialogFlag) Toast.makeText(mActivity, "更新しました。", Toast.LENGTH_SHORT).show();
 
         mLoadingDialog.dismiss();
+
     }
 }

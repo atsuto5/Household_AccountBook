@@ -4,18 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.example.atsuto5.yahoo_rss_reader.Utils.NetworkUtil;
 
 /**
  * Created by Atsuto5 on 2017/02/12.
  */
 public class WebViewActivity extends AppCompatActivity {
 
-    String URL_KEY = "URL";
     String TAG ="WebViewActivity";
     WebView mYahooWebView;
 
@@ -42,7 +42,7 @@ public class WebViewActivity extends AppCompatActivity {
 
         //MainActivityからのIntentを取得
         Intent webViewIntent = getIntent();
-        mYahooWebView.loadUrl(webViewIntent.getStringExtra(URL_KEY));
+        mYahooWebView.loadUrl(webViewIntent.getStringExtra(NetworkUtil.URL_KEY));
     }
 
    //バックキー押下時、WebView内でページバックする

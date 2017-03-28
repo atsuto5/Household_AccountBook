@@ -1,15 +1,19 @@
 package com.example.atsuto5.yahoo_rss_reader.TopicsFragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.atsuto5.yahoo_rss_reader.ItemBeans;
 import com.example.atsuto5.yahoo_rss_reader.MainActivity;
-import com.example.atsuto5.yahoo_rss_reader.PrefsUtils;
+import com.example.atsuto5.yahoo_rss_reader.Utils.NetworkUtil;
+import com.example.atsuto5.yahoo_rss_reader.Utils.PrefsUtils;
 import com.example.atsuto5.yahoo_rss_reader.R;
 import com.example.atsuto5.yahoo_rss_reader.RssAdapter;
 import com.example.atsuto5.yahoo_rss_reader.BackgroundTask.RssAsyncTask;
@@ -34,8 +38,26 @@ public class ScienceFragment extends Fragment {
         View root = inflater.inflate(R.layout.topics_layout, container, false);
 
         mMainActivity = (MainActivity) getActivity();
-        mRssAdapter = new RssAdapter(mMainActivity, R.layout.rss_beans, PrefsUtils.SCIENCE_KEY);
+        mRssAdapter = new RssAdapter(mMainActivity, R.layout.rss_beans);
         mRssList = (ListView) root.findViewById(R.id.Rss_ListView);
+        mRssList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //Main Topicsのアクセスカウントを追加
+                PrefsUtils.storeCount(PrefsUtils.SCIENCE_KEY, getActivity());
+
+                //parentからListViewを取得
+                ListView listView = (ListView) parent;
+                ItemBeans item = (ItemBeans) listView.getItemAtPosition(position);
+
+                //WebViewActivity起動
+                Intent webViewIntent = new Intent();
+                webViewIntent.setClassName(NetworkUtil.PACKAGE_NAME,NetworkUtil.WebViewActivity_NAME);
+                webViewIntent.putExtra(NetworkUtil.URL_KEY, item.getUrl());
+                getActivity().startActivity(webViewIntent);
+            }
+        });
 
         //データ取得開始
         RssAsyncTask rssAsync = new RssAsyncTask(mRssList, mRssAdapter, mMainActivity, mRefreshLayout, true);

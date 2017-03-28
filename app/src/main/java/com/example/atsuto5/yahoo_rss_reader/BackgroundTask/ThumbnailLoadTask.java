@@ -67,6 +67,7 @@ public class ThumbnailLoadTask extends AsyncTask <ArrayList<ItemBeans>, Void, Ar
                 e.printStackTrace();
             }
         }
+
         return itemList;
     }
 

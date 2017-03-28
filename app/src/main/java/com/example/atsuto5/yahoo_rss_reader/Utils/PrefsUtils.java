@@ -1,4 +1,4 @@
-package com.example.atsuto5.yahoo_rss_reader;
+package com.example.atsuto5.yahoo_rss_reader.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

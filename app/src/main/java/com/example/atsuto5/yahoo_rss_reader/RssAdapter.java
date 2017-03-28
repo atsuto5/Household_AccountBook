@@ -24,25 +24,22 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
     private LayoutInflater mInflater;
     private ArrayList<ItemBeans> itemList = new ArrayList<>();
     private String TAG = "RssAdapter";
-    private static final String URL_KEY = "URL";
-    private static final String PACKAGE_NAME = "com.example.atsuto5.yahoo_rss_reader";
-    private static final String WebViewActivity_NAME = "com.example.atsuto5.yahoo_rss_reader.WebViewActivity";
     private Context mContext;
-    private String TOPIC_NAME;
+    //private String TOPIC_NAME;
 
     static class ViewHolder{
         TextView titleText;
-        Button urlButton;
+        TextView subText;
         ImageView thumbNailView;
         ImageView userLikeView;
     }
 
 
-    public RssAdapter(Context context, int id, String topicName) {
+    public RssAdapter(Context context, int id) {
         super(context, id);
         mContext = context;
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        TOPIC_NAME = topicName;
+        //TOPIC_NAME = topicName;
         }
 
 
@@ -55,7 +52,7 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
             //ViewHolderを作成
             holder = new ViewHolder();
             holder.titleText = (TextView) view.findViewById(R.id.titleTextView);
-            holder.urlButton = (Button) view.findViewById(R.id.urlButton);
+            holder.subText = (TextView) view.findViewById(R.id.subTextView);
             holder.thumbNailView = (ImageView) view.findViewById(R.id.thumbNailView);
             holder.userLikeView = (ImageView) view.findViewById(R.id.userLikeView);
             view.setTag(holder);
@@ -68,60 +65,66 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
             if(item != null){
 
                 holder.titleText.setText(item.getTitle());
-                holder.urlButton.setText(item.getUrl());
-                holder.urlButton.setOnClickListener(new View.OnClickListener()  {
-                    //URLをタップしたときWebViewActivityに遷移する
-                    public void onClick(View v) {
+                holder.subText.setText(item.getUrl());
+//                holder.urlButton.setOnClickListener(new View.OnClickListener()  {
+//                    //URLをタップしたときWebViewActivityに遷移する
+//                    public void onClick(View v) {
+//
+//                        switch (TOPIC_NAME) {
+//
+//                            case PrefsUtils.MAIN_TOPICS_KEY :
+//                                PrefsUtils.storeCount(PrefsUtils.MAIN_TOPICS_KEY, mContext);
+//                                break;
+//
+//                            case PrefsUtils.INTERNATIONAL_KEY :
+//                                PrefsUtils.storeCount(PrefsUtils.INTERNATIONAL_KEY, mContext);
+//                                break;
+//
+//                            case PrefsUtils.ENTERTAINMENT_KEY :
+//                                PrefsUtils.storeCount(PrefsUtils.ENTERTAINMENT_KEY, mContext);
+//                                break;
+//
+//                            case PrefsUtils.IT_KEY :
+//                                PrefsUtils.storeCount(PrefsUtils.IT_KEY, mContext);
+//                                break;
+//
+//                            case PrefsUtils.LOCAL_KEY :
+//                                PrefsUtils.storeCount(PrefsUtils.LOCAL_KEY, mContext);
+//                                break;
+//
+//                            case PrefsUtils.DOMESTIC_KEY :
+//                                PrefsUtils.storeCount(PrefsUtils.DOMESTIC_KEY, mContext);
+//                                break;
+//
+//                            case PrefsUtils.ECONOMY_KEY :
+//                                PrefsUtils.storeCount(PrefsUtils.ECONOMY_KEY, mContext);
+//                                break;
+//
+//                            case PrefsUtils.SPORTS_KEY :
+//                                PrefsUtils.storeCount(PrefsUtils.SPORTS_KEY, mContext);
+//                                break;
+//
+//                            case PrefsUtils.SCIENCE_KEY :
+//                                PrefsUtils.storeCount(PrefsUtils.SCIENCE_KEY, mContext);
+//                                break;
+//                        }
+//
+////                        Intent webViewIntent = new Intent();
+////                        webViewIntent.setClassName(PACKAGE_NAME,WebViewActivity_NAME);
+////                        webViewIntent.putExtra(URL_KEY, item.getUrl());
+////                        Log.i(TAG, "onClick: " + item.getUrl());
+////                        mContext.startActivity(webViewIntent);
+//
+//                    }
+//                });
 
-                        switch (TOPIC_NAME) {
-
-                            case PrefsUtils.MAIN_TOPICS_KEY :
-                                PrefsUtils.storeCount(PrefsUtils.MAIN_TOPICS_KEY, mContext);
-                                break;
-
-                            case PrefsUtils.INTERNATIONAL_KEY :
-                                PrefsUtils.storeCount(PrefsUtils.INTERNATIONAL_KEY, mContext);
-                                break;
-
-                            case PrefsUtils.ENTERTAINMENT_KEY :
-                                PrefsUtils.storeCount(PrefsUtils.ENTERTAINMENT_KEY, mContext);
-                                break;
-
-                            case PrefsUtils.IT_KEY :
-                                PrefsUtils.storeCount(PrefsUtils.IT_KEY, mContext);
-                                break;
-
-                            case PrefsUtils.LOCAL_KEY :
-                                PrefsUtils.storeCount(PrefsUtils.LOCAL_KEY, mContext);
-                                break;
-
-                            case PrefsUtils.DOMESTIC_KEY :
-                                PrefsUtils.storeCount(PrefsUtils.DOMESTIC_KEY, mContext);
-                                break;
-
-                            case PrefsUtils.ECONOMY_KEY :
-                                PrefsUtils.storeCount(PrefsUtils.ECONOMY_KEY, mContext);
-                                break;
-
-                            case PrefsUtils.SPORTS_KEY :
-                                PrefsUtils.storeCount(PrefsUtils.SPORTS_KEY, mContext);
-                                break;
-
-                            case PrefsUtils.SCIENCE_KEY :
-                                PrefsUtils.storeCount(PrefsUtils.SCIENCE_KEY, mContext);
-                                break;
-                        }
-
-                        Intent webViewIntent = new Intent();
-                        webViewIntent.setClassName(PACKAGE_NAME,WebViewActivity_NAME);
-                        webViewIntent.putExtra(URL_KEY, item.getUrl());
-                        Log.i(TAG, "onClick: " + item.getUrl());
-                        mContext.startActivity(webViewIntent);
-
-                    }
-                });
-
-                holder.thumbNailView.setImageBitmap(item.getThumNail());
+                if (null == item.getThumbNailUrl()) {
+                    //サムネイルローディング中の画像を表示。
+                    holder.thumbNailView.setImageResource(R.drawable.yahoo_icon);
+                } else {
+                    //ローディングが終わったら差し替える。
+                    holder.thumbNailView.setImageBitmap(item.getThumNail());
+                }
 
                 holder.userLikeView.setImageResource(R.drawable.yellow_star);
                 holder.userLikeView.setOnClickListener(new View.OnClickListener() {
