@@ -27,17 +27,17 @@ public class ThumbnailLoadTask extends AsyncTask <ArrayList<ItemBeans>, Void, Ar
     private ListView mRssListView;
     private RssAdapter mRssAdapter;
     private Activity mActivity;
-    private ProgressDialog mLoadingDialog;
-    private boolean mDialogFlag;
+    //private ProgressDialog mLoadingDialog;
+    //private boolean mDialogFlag;
     private SwipeRefreshLayout mRefreshLayout;
 
-    public ThumbnailLoadTask(ListView listView, RssAdapter rssAdapter, Activity activity, SwipeRefreshLayout refreshLayout, Boolean dialogFlag, ProgressDialog progressDialog) {
+    public ThumbnailLoadTask(ListView listView, RssAdapter rssAdapter, Activity activity) {
         this.mRssListView = listView;
         this.mRssAdapter = rssAdapter;
         this.mActivity = activity;
-        this.mDialogFlag = dialogFlag;
-        this.mRefreshLayout = refreshLayout;
-        this.mLoadingDialog = progressDialog;
+        //this.mDialogFlag = dialogFlag;
+        //this.mRefreshLayout = refreshLayout;
+        //this.mLoadingDialog = progressDialog;
     }
 
 
@@ -76,7 +76,7 @@ public class ThumbnailLoadTask extends AsyncTask <ArrayList<ItemBeans>, Void, Ar
         super.onPostExecute(itemList);
 
         //[name=item-imag]と一致するURLにアクセスしimgを取得しBitmapで格納する。
-        BitmapSetTask bitmapSetTask = new BitmapSetTask(mRssListView, mRssAdapter, mActivity, mRefreshLayout, mDialogFlag, mLoadingDialog);
+        BitmapSetTask bitmapSetTask = new BitmapSetTask(mRssListView, mRssAdapter, mActivity);
         bitmapSetTask.execute(itemList);
 
     }

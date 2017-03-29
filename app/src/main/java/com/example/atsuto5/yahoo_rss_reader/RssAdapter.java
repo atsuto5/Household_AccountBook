@@ -15,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+
 import java.util.ArrayList;
 
 /**
@@ -119,8 +122,11 @@ public class RssAdapter extends ArrayAdapter<ItemBeans> {
 //                });
 
                 if (null == item.getThumbNailUrl()) {
-                    //サムネイルローディング中の画像を表示。
-                    holder.thumbNailView.setImageResource(R.drawable.yahoo_icon);
+                    //サムネイルローディング中のGIFを表示。
+                    holder.thumbNailView.setMaxHeight(32);
+                    holder.thumbNailView.setMaxWidth(32);
+                    GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(holder.thumbNailView);
+                    Glide.with(mContext).load(R.raw.loading_128).into(target);
                 } else {
                     //ローディングが終わったら差し替える。
                     holder.thumbNailView.setImageBitmap(item.getThumNail());

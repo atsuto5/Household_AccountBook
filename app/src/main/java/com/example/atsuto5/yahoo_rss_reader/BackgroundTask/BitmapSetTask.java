@@ -32,17 +32,17 @@ public class BitmapSetTask extends AsyncTask <ArrayList<ItemBeans>, Void, ArrayL
     private ListView mRssListView;
     private RssAdapter mRssAdapter;
     private Activity mActivity;
-    private ProgressDialog mLoadingDialog;
-    private boolean mDialogFlag;
+   // private ProgressDialog mLoadingDialog;
+   // private boolean mDialogFlag;
     private SwipeRefreshLayout mRefreshLayout;
 
-    public BitmapSetTask(ListView listView, RssAdapter rssAdapter, Activity activity, SwipeRefreshLayout refreshLayout, Boolean dialogFlag, ProgressDialog progressDialog) {
+    public BitmapSetTask(ListView listView, RssAdapter rssAdapter, Activity activity) {
         this.mRssListView = listView;
         this.mRssAdapter = rssAdapter;
         this.mActivity = activity;
-        this.mDialogFlag = dialogFlag;
-        this.mRefreshLayout = refreshLayout;
-        this.mLoadingDialog = progressDialog;
+        //this.mDialogFlag = dialogFlag;
+        //this.mRefreshLayout = refreshLayout;
+        //this.mLoadingDialog = progressDialog;
     }
 
 
@@ -89,9 +89,9 @@ public class BitmapSetTask extends AsyncTask <ArrayList<ItemBeans>, Void, ArrayL
 
         mRssListView.setAdapter(mRssAdapter);
 
-        if(!mDialogFlag) Toast.makeText(mActivity, "更新しました。", Toast.LENGTH_SHORT).show();
+        //if(!mDialogFlag) Toast.makeText(mActivity, "更新しました。", Toast.LENGTH_SHORT).show();
 
-        mLoadingDialog.dismiss();
+        //mLoadingDialog.dismiss();
 
     }
 }

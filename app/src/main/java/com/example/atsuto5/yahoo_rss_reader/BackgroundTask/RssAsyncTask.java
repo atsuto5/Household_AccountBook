@@ -130,12 +130,13 @@ public class RssAsyncTask extends AsyncTask<String, Integer, ArrayList> {
 
         mRssListView.setAdapter(mRssAdapter);
 
+        Toast.makeText(mActivity, "ロードしました。", Toast.LENGTH_SHORT).show();
         if(!mDialogFlag) Toast.makeText(mActivity, "更新しました。", Toast.LENGTH_SHORT).show();
 
         mLoadingDialog.dismiss();
 
         //RSSで取得したURLを元にHTMLを取得しに行く。
-        ThumbnailLoadTask thumbGetTask = new ThumbnailLoadTask(mRssListView, mRssAdapter, mActivity, mRefreshLayout, mDialogFlag, mLoadingDialog);
+        ThumbnailLoadTask thumbGetTask = new ThumbnailLoadTask(mRssListView, mRssAdapter, mActivity);
         thumbGetTask.execute(itemList);
 
         }
