@@ -2,7 +2,10 @@ package com.example.atsuto5.yahoo_rss_reader.TopicsFragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +21,8 @@ import com.example.atsuto5.yahoo_rss_reader.Utils.PrefsUtils;
 import com.example.atsuto5.yahoo_rss_reader.R;
 import com.example.atsuto5.yahoo_rss_reader.RssAdapter;
 import com.example.atsuto5.yahoo_rss_reader.BackgroundTask.RssAsyncTask;
+
+import org.chromium.customtabsclient.shared.CustomTabsHelper;
 
 /**
  * Created by Atsuto5 on 2017/02/18.
@@ -55,12 +60,23 @@ public class MainTopicsFragment extends Fragment {
                 ListView listView = (ListView) parent;
                 ItemBeans item = (ItemBeans) listView.getItemAtPosition(position);
 
+                //ChromeCustomTabの起動処理開始
+                final CustomTabsIntent tabsIntent = new CustomTabsIntent.Builder()
+                        .setShowTitle(true)
+                        .setToolbarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary))
+                        .build();
+                String packageName = CustomTabsHelper.getPackageNameToUse(mMainActivity);
+                tabsIntent.intent.setPackage(packageName);
+                  // Chromeの起動
+                tabsIntent.launchUrl(getActivity(), Uri.parse(item.getUrl()));
+
+
                 //WebViewActivity起動
-                Intent webViewIntent = new Intent();
-                webViewIntent.setClassName(NetworkUtil.PACKAGE_NAME,NetworkUtil.WebViewActivity_NAME);
-                webViewIntent.putExtra(NetworkUtil.URL_KEY, item.getUrl());
-                Log.i(TAG, "onClick: " + item.getUrl());
-                getActivity().startActivity(webViewIntent);
+//                Intent webViewIntent = new Intent();
+//                webViewIntent.setClassName(NetworkUtil.PACKAGE_NAME,NetworkUtil.WebViewActivity_NAME);
+//                webViewIntent.putExtra(NetworkUtil.URL_KEY, item.getUrl());
+//                Log.i(TAG, "onClick: " + item.getUrl());
+//                getActivity().startActivity(webViewIntent);
             }
         });
 
